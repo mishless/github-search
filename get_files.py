@@ -8,7 +8,7 @@ lang = 'Java'
 access_token = config.access_token;
 print(access_token)
 sha = '/master?recursive=1&access_token={}'.format(access_token);
-pages = 100
+per_page = 100
 requests = 0
 
 def create_save_file(repo_name, content_path, path, requests):
@@ -35,20 +35,28 @@ def create_save_file(repo_name, content_path, path, requests):
     return requests
 
 
-repositories = urlopen('https://api.github.com/search/repositories?q=language:{}&sort=stars&order=desc&page=0&per_page={}&access_token={}'.format(lang, pages, access_token)).read().decode('utf-8')
-requests += 1
-repositories = json.loads(repositories)
-for repo in repositories['items']:
-    content_path = repo['contents_url'].replace('{+path}', '')
-    if requests == 5000:
-        sleep(60*60)
-        requests = 0
-    try:
-        requests += 1
-        files = urlopen(repo['trees_url'].replace('{/sha}', sha)).read().decode('utf-8')
-    except:
-        print("Ignoring {}".format(repo['trees_url'].replace('{/sha}', sha)))
-    files = json.loads(files)
-    for file in files['tree']:
-        if file['path'].endswith('.java'):
-            requests = create_save_file(repo['name'], content_path, file['path'], requests)
+def download_page(page, requests):
+    format_string = 'https://api.github.com/search/repositories?q=language:{}&sort=stars&order=desc&page={}&per_page={}&access_token={}'
+    url = format_string.format(lang, page, per_page, access_token)
+    repositories = urlopen(url).read().decode('utf-8')
+    requests += 1
+
+    repositories = json.loads(repositories)
+    for repo in repositories['items']:
+        content_path = repo['contents_url'].replace('{+path}', '')
+        if requests == 5000:
+            sleep(60*60)
+            requests = 0
+        try:
+            requests += 1
+            files = urlopen(repo['trees_url'].replace('{/sha}', sha)).read().decode('utf-8')
+        except:
+            print("Ignoring {}".format(repo['trees_url'].replace('{/sha}', sha)))
+        files = json.loads(files)
+        for file in files['tree']:
+            if file['path'].endswith('.java'):
+                requests = create_save_file(repo['name'], content_path, file['path'], requests)
+
+for i in range(10, 15):
+    print('\n\nDownloading page {}'.format(i))
+    download_page(i, requests)
