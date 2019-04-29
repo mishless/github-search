@@ -15,8 +15,13 @@ def get_index():
 
 @get("/search")
 def get_search():
-    results = []
-    return template("results.tpl", results)
+    query = request.query.query
+    results = [
+            {"title": "A result", "url": "http://www.github.com", "snippet": "print('Hello world!');"},
+        {"title": "Another result", "url": "http://www.google.com"},
+    ]
+
+    return template("results.tpl", query=query, results=results)
 
 
 debug(True)

@@ -95,9 +95,17 @@ button[type=submit]:hover {
   margin-left: auto;
 }
 
-.flex {
-  display: flex;
-  flex-wrap: wrap;
-  width: 100%;
+.result {
+  display: block;
+  margin: 20px;
 }
 
+.result a {
+  font-family: var(--font-main);
+  font-size: 1.4em;
+}
+
+code {
+  font-family: var(--font-code);
+  font-size: 0.8em;
+}

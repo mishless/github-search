@@ -1,9 +1,13 @@
-% rebase('search.tpl', title=query)
-<a href="/recipes" id="backbutton">
-  <i class="fas fa-arrow-left"></i>
-</a>
+%rebase('search.tpl', title=query, query=query)
 <div id="container">
-  % for result in results:
-    <p>THIS IS A RESULT</p>
-  % end
+  %for result in results:
+    <div class="result">
+      <a href="{{result['url']}}">{{result['title']}}</a><br>
+      %if 'snippet' in result:
+      <code>
+        {{result['snippet']}}
+      </code>
+      %end
+    </div>
+  %end
 </div>

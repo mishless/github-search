@@ -3,6 +3,8 @@ const selectionOutput = document.getElementById('selection');
 
 const tags = ['type', 'lang', 'user', 'repo'];
 
+// Fill in search box if a value is passed through the attribute
+searchbox.innerText = searchbox.attributes.innertext.value;
 
 function renderText(text) {
   tagTexts = tags.map((tag) => {return tag + ':'});
@@ -12,6 +14,19 @@ function renderText(text) {
 
 function renderTag(tag) {
   return '<span class="tagtext">' + tag + '</span>';
+}
+
+function submitOnEnter(e) {
+  if (e.keyCode == 13) {
+    e.preventDefault();
+    document.querySelector('button[type="submit"]').click();
+  }
+}
+searchbox.addEventListener('keydown', submitOnEnter);
+
+function copyQuery() {
+  document.getElementById('hiddenquery').value = searchbox.innerText;
+  return true;
 }
 
 function getTextSegments(element) {
