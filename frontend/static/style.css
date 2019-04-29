@@ -1,0 +1,103 @@
+@import url('https://fonts.googleapis.com/css?family=Inconsolata:400,700|Source+Sans+Pro');
+
+:root {
+  --color-bg: #fff;
+  --color-main: #07889b;
+  --color-main-light: #66b9bf;
+  --color-accent: #e37222;
+  --color-accent-light: #eeaa7b;
+
+  --font-main: 'Source Sans Pro', sans-serif;
+  --font-code: 'Inconsolata', monospace;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+    height: 100%;
+}
+
+body {
+  background-color: var(--color-bg);
+  position: relative;
+  min-height: 100%;
+}
+
+header {
+  background-color: var(--color-accent);
+  padding: 4px;
+  height: auto;
+  overflow: auto;
+}
+
+h1 {
+  color: var(--color-main);
+  color: #fff;
+  font-size: 2em;
+  font-family: var(--font-main);
+  margin-left: 10px;
+  float: left;
+}
+
+#searchbox {
+  background-color: #fff;
+  font-family: var(--font-code);
+  font-size: 1em;
+  float: left;
+  margin-left: 22px;
+  transform: translateY(calc(50% - 4px));
+  border: none;
+  border-radius: 5px;
+  height: 26px;
+  width: 400px;
+  padding-left: 10px;
+  padding-top: 4px;
+  white-space: pre;
+}
+
+#searchbox:empty:not(:focus):before{
+  content: attr(placeholder);
+  color:grey;
+}
+
+.tagtext {
+  font-weight: bold;
+  color: #444;
+}
+
+button[type=submit] {
+  background-color: var(--color-main); 
+  color: #fff;
+  border: none;
+  border-style: none;
+  border-radius: 5px;
+  padding: 5px 8px;
+  text-align: center;
+  text-decoration: none;
+  font-size: 13px;
+  cursor: pointer;
+  transform: translateY(calc(50% - 5px));
+  margin-left: 10px;
+}
+
+button[type=submit]:hover {
+  background-color: var(--color-main-light); 
+}
+
+#container {
+  max-width: 1000px;
+  padding: 30px;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+.flex {
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+}
+
