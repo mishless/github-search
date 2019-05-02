@@ -12,7 +12,11 @@ def get_class_doc(url, type, imports, package):
             "is_final": 'final' in type.modifiers,
             "annotation": get_annotations(type.annotations),
             "extends_class": get_references([type.extends]),
-            "implements_interfaces": get_references(type.implements)
+            "implements_interfaces": get_references(type.implements),
+            "position": {
+                "line": type._position.line,
+                "column": type._position.column
+            }
     }
     if imports is not None:
         class_doc['imports'] = get_imports(imports)
@@ -75,13 +79,3 @@ def get_access_modifier(modifier):
         return 'protected'
     if 'private' in modifier:
         return 'private'
-
-# with open('Test.java', 'r',encoding='utf_8') as file:
-#     data = file.read()
-#     tree = javalang.parse.parse(data)
-#     #print(tree.types[0])
-#     #print([tree.imports[i].path for i in range(len(tree.imports))])
-#     # for i in range(len(tree.types)):
-#     #     print(isinstance(tree.types[i], javalang.tree.ClassDeclaration))
-#     #     print(type(tree.types[i]))
-#     parse_tree(tree)

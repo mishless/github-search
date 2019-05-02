@@ -150,6 +150,17 @@ class_properties = {
             },
             "package": {
                 "type": "keyword"
+            },
+            "position": {
+                "type": "nested",
+                "properties": {
+                    "line": {
+                        "type": "integer"
+                    },
+                    "row": {
+                        "type": "integer"
+                    }
+                }
             }
         }
     }
