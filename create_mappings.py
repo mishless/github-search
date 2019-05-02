@@ -70,6 +70,36 @@ interface_properties = {
             },
             "implements_interfaces": {
                 "type": "keyword"
+            },
+            "imports": {
+                "type": "keyword"
+            },
+            "package": {
+                "type": "keyword"
+            }
+        }
+    }
+}
+enum_properties = {
+    "doc": {
+        "properties": {
+            "url": {
+                "type": "keyword"
+            },
+            "enum_name": {
+                "type": "keyword"
+            },
+            "constants": {
+                "type": "keyword"
+            },
+            "implements_interfaces": {
+                "type": "keyword"
+            },
+            "imports": {
+                "type": "keyword"
+            },
+            "package": {
+                "type": "keyword"
             }
         }
     }
@@ -82,6 +112,17 @@ class_properties = {
             },
             "class_name": {
                 "type": "keyword"
+            },
+            "type_parameters": {
+                "type": "nested",
+                "properties": {
+                    "extends": {
+                        "type": "keyword"
+                    },
+                    "name": {
+                        "type": "keyword"
+                    }
+                }
             },
             "access_modifier": {
                 "type": "keyword"
@@ -102,6 +143,12 @@ class_properties = {
                 "type": "keyword"
             },
             "implements_interfaces": {
+                "type": "keyword"
+            },
+            "imports": {
+                "type": "keyword"
+            },
+            "package": {
                 "type": "keyword"
             }
         }
@@ -170,26 +217,11 @@ variable_proprties = {
         }
     }
 }
-package_properties = {
-    "doc": {
-        "properties": {
-            "url": {
-                "type": "keyword"
-            },
-            "package_name_kw": {
-                "type": "keyword"
-            },
-            "package_name_txt": {
-                "type": "text"
-            }
-        }
-    }
-}
 
-indices = [(config.repository_index, repository_properties), \
+indices = [(config.repository_index, repository_properties), (config.enum_index, enum_properties), \
 (config.file_index, file_properties), (config.interface_index, interface_properties), \
 (config.class_index, class_properties), (config.method_index, method_properties),  \
-(config.variable_index, variable_proprties), (config.package_index, package_properties)]
+(config.variable_index, variable_proprties)]
 
 def create_index(es_object, index_name, properties):
     created = False
@@ -210,7 +242,7 @@ def create_index(es_object, index_name, properties):
                 print('Index couldn\'t be created', index_name, res)
         created = True
     except Exception as ex:
-        print('Exception!', str(ex))
+        print('Exception!', index_name, ex)
     finally:
         return created
 

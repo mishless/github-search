@@ -5,11 +5,11 @@ import os
 import config
 import lizard
 import os, base64, re, logging
+import file_parser
 from elasticsearch import Elasticsearch
 
 lang = 'Java'
-access_token = config.access_token;
-print(access_token)
+access_token = config.access_token
 sha = '/master?recursive=1&access_token={}'.format(access_token);
 per_page = 100
 requests = 0
@@ -54,6 +54,9 @@ def create_save_file(repo_name, content_path, path, requests, id, url):
         'words': response
     }
     res = es.index(index=config.file_index, doc_type='doc', body=doc)
+    docs = file_parser.parse_data(response, url)
+    for doc in docs:
+        res = es.index(index=doc[0], doc_type='doc', body=doc[1])
     file_path = './repos/{}/{}'.format(repo_name, path)
     if not os.path.exists(os.path.dirname(file_path)):
         os.makedirs(os.path.dirname(file_path))
