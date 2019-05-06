@@ -54,9 +54,13 @@ def create_save_file(repo_name, content_path, path, requests, id, url):
         'words': response
     }
     res = es.index(index=config.file_index, doc_type='doc', body=doc)
-    docs = file_parser.parse_data(response, url)
+    analysed_code = lizard.analyze_file.analyze_source_code("Placeholder.java", response)
+    try:
+        docs = file_parser.parse_data(response, url, analysed_code)
+    except Exception as ex:
+        print(ex, path, content_path)
     for doc in docs:
-        res = es.index(index=doc[0], doc_type='doc', body=doc[1])
+      res = es.index(index=doc[0], doc_type='doc', body=doc[1])
     # file_path = './repos/{}/{}'.format(repo_name, path)
     # if not os.path.exists(os.path.dirname(file_path)):
     #     os.makedirs(os.path.dirname(file_path))
@@ -64,9 +68,6 @@ def create_save_file(repo_name, content_path, path, requests, id, url):
     # with open(file_path, 'a', encoding='utf-8') as file:
     #     file.write(response)
     #     file.close()
-    # i = lizard.analyze_file(file_path)
-    # for function_index in range(len(i.__dict__['function_list'])):
-    #     print(i.function_list[function_index].__dict__)
     return requests
 
 def download_page(page, requests):

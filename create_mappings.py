@@ -65,7 +65,7 @@ interface_properties = {
             "interface_name": {
                 "type": "keyword"
             },
-            "interface_modifier": {
+            "access_modifier": {
                 "type": "keyword"
             },
             "implements_interfaces": {
@@ -76,6 +76,31 @@ interface_properties = {
             },
             "package": {
                 "type": "keyword"
+            },
+            "position": {
+                "type": "nested",
+                "properties": {
+                    "line": {
+                        "type": "integer"
+                    },
+                    "row": {
+                        "type": "integer"
+                    }
+                }
+            },
+            "type_parameters": {
+                "type": "nested",
+                "properties": {
+                    "extends": {
+                        "type": "keyword"
+                    },
+                    "name": {
+                        "type": "keyword"
+                    }
+                }
+            },
+            "annotation": {
+                "type": "text"
             }
         }
     }
@@ -89,6 +114,9 @@ enum_properties = {
             "enum_name": {
                 "type": "keyword"
             },
+            "access_modifier": {
+                "type": "keyword"
+            },
             "constants": {
                 "type": "keyword"
             },
@@ -100,6 +128,20 @@ enum_properties = {
             },
             "package": {
                 "type": "keyword"
+            },
+            "annotation": {
+                "type": "text"
+            },
+            "position": {
+                "type": "nested",
+                "properties": {
+                    "line": {
+                        "type": "integer"
+                    },
+                    "row": {
+                        "type": "integer"
+                    }
+                }
             }
         }
     }
@@ -191,6 +233,23 @@ method_properties = {
             },
             "input_type": {
                 "type": "keyword"
+            },
+            "throws": {
+                "type": "keyword"
+            },
+            "annotation": {
+                "type": "text"
+            },
+            "type_parameters": {
+                "type": "nested",
+                "properties": {
+                    "extends": {
+                        "type": "keyword"
+                    },
+                    "name": {
+                        "type": "keyword"
+                    }
+                }
             },
             "cyclomatic_complexity": {
                 "type": "integer"
