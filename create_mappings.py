@@ -275,6 +275,9 @@ variable_proprties = {
             "variable_type": {
                 "type": "keyword"
             },
+            "annotation": {
+                "type": "text"
+            },
             "access_modifier": {
                 "type": "keyword"
             },

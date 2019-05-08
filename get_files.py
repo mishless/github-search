@@ -60,7 +60,8 @@ def create_save_file(repo_name, content_path, path, requests, id, url):
     except Exception as ex:
         print(ex, path, content_path)
     for doc in docs:
-      res = es.index(index=doc[0], doc_type='doc', body=doc[1])
+        print('DOC:', doc)
+        res = es.index(index=doc[0], doc_type='doc', body=doc[1])
     # file_path = './repos/{}/{}'.format(repo_name, path)
     # if not os.path.exists(os.path.dirname(file_path)):
     #     os.makedirs(os.path.dirname(file_path))
@@ -104,6 +105,6 @@ def download_page(page, requests):
             if file['path'].endswith('.java'):
                 requests = create_save_file(repo['name'], content_path, file['path'], requests, repo['id'], file['url'])
 
-for i in range(10, 15):
+for i in range(1, 5):
     print('\n\nDownloading page {}'.format(i))
     download_page(i, requests)

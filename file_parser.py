@@ -94,6 +94,17 @@ def get_method_doc(url, type, analysed_code):
     if type.return_type is not None:
         method_doc['return_type'] = get_annotations([type.return_type])
     return method_doc
+def get_variable_doc(url, type):
+    variable_doc = {
+        "url": url,
+        "variable_name": get_variable_names(type.declarators),
+        "variable_type": get_references([type.type]),
+        "annotation": get_annotations(type.annotations),
+        "access_modifier": get_access_modifier(type.modifiers),
+        "is_static": 'static' in type.modifiers,
+        "is_final": 'final' in type.modifiers,
+    }
+    return variable_doc
 
 def parse_data(data, url, analysed_code):
     tree = javalang.parse.parse(data)
@@ -106,18 +117,27 @@ def parse_data(data, url, analysed_code):
                 for method in type.methods:
                     method_doc = (config.method_index, get_method_doc(url, method, analysed_code))
                     docs.append(method_doc)
+                for field in type.fields:
+                    variable_doc = (config.variable_index, get_variable_doc(url, field))
+                    docs.append(variable_doc)
             elif isinstance(type, javalang.tree.InterfaceDeclaration):
                 interface_doc = (config.interface_index, get_interface_doc(url, type, tree.imports, tree.package))
                 docs.append(interface_doc)
                 for method in type.methods:
                     method_doc = (config.method_index, get_method_doc(url, method, analysed_code))
                     docs.append(method_doc)
+                for field in type.fields:
+                    variable_doc = (config.variable_index, get_variable_doc(url, field))
+                    docs.append(variable_doc)
             elif isinstance(type, javalang.tree.EnumDeclaration):
                 enum_doc = (config.enum_index, get_enum_doc(url, type, tree.imports, tree.package))
                 docs.append(enum_doc)
                 for method in type.methods:
                     method_doc = (config.method_index, get_method_doc(url, method, analysed_code))
                     docs.append(method_doc)
+                for field in type.fields:
+                    variable_doc = (config.variable_index, get_variable_doc(url, field))
+                    docs.append(variable_doc)
     return docs
 
 def get_references(references):
@@ -184,13 +204,15 @@ def get_parameter_types(parameters):
         parameters_types.append(get_references([parameter.type])[0])
     return parameters_types
 
+def get_variable_names(names):
+    names_list = []
+    for name in names:
+        if isinstance(name, javalang.tree.VariableDeclarator):
+            names_list.append(name.name)
+    return names_list
+
 # with open('Test.java', 'r', encoding='utf_8') as file:
 #     data = file.read()
-    #tree = javalang.parse.parse(data)
-    # docs = parse_data(data, 'url')
-    # print(docs)
-    #print(tree.types[0])
-    #print([tree.imports[i].path for i in range(len(tree.imports))])
-    # for i in range(len(tree.types)):
-    #     print(isinstance(tree.types[i], javalang.tree.ClassDeclaration))
-    #     print(type(tree.types[i]))
+#     tree = javalang.parse.parse(data)
+#     docs = parse_data(data, 'url', None)
+#     print(docs)
