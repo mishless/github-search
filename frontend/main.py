@@ -10,12 +10,12 @@ def get_static(filepath):
 
 @get("/")
 def get_index():
-    return template("search.tpl")
+    return template("search.tpl", query="", base="")
 
 
 @get("/search")
 def get_search():
-    query = request.query.query
+    query = request.query.query or ""
     results = [
             {"title": "A result", "url": "http://www.github.com", "snippet": "print('Hello world!');"},
         {"title": "Another result", "url": "http://www.google.com"},
