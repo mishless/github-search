@@ -1,7 +1,7 @@
 const searchbox = document.querySelector('#searchbox');
 const selectionOutput = document.getElementById('selection');
 
-const tags = ['type', 'lang', 'user', 'repo'];
+const tags = ['returns', 'access'];
 
 // Fill in search box if a value is passed through the attribute
 searchbox.innerText = searchbox.attributes.innertext.value;

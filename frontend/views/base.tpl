@@ -9,7 +9,7 @@
   <link rel="stylesheet" type="text/css" href="/static/style.css">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
 
-  <script type="text/javascript" src="http://livejs.com/live.js"></script><script type="text/javascript" src="http://livejs.com/live.js"></script>
+  <!-- <script type="text/javascript" src="http://livejs.com/live.js"></script><script type="text/javascript" src="http://livejs.com/live.js"></script> -->
 </head>
 <body>
   {{!base}}

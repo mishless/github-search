@@ -1,4 +1,5 @@
 from bottle import *
+import searching
 
 static_path = "static/"
 
@@ -16,13 +17,9 @@ def get_index():
 @get("/search")
 def get_search():
     query = request.query.query or ""
-    results = [
-            {"title": "A result", "url": "http://www.github.com", "snippet": "print('Hello world!');"},
-        {"title": "Another result", "url": "http://www.google.com"},
-    ]
-
+    results = searching.search(query)
     return template("results.tpl", query=query, results=results)
 
 
 debug(True)
-run(host="localhost", port=8080, reloader=True)
+run(host="localhost", port=8080, reloader=True, quiet=True)
