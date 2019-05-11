@@ -21,7 +21,7 @@ repository_properties = {
                 "type": "text"
             },
             "name": {
-                "type": "keyword"
+                "type": "text"
             },
             "html_url": {
                 "type": "keyword"
@@ -63,7 +63,7 @@ interface_properties = {
                 "type": "keyword"
             },
             "interface_name": {
-                "type": "keyword"
+                "type": "text"
             },
             "access_modifier": {
                 "type": "keyword"
@@ -112,7 +112,7 @@ enum_properties = {
                 "type": "keyword"
             },
             "enum_name": {
-                "type": "keyword"
+                "type": "text"
             },
             "access_modifier": {
                 "type": "keyword"
@@ -153,7 +153,7 @@ class_properties = {
                 "type": "keyword"
             },
             "class_name": {
-                "type": "keyword"
+                "type": "text"
             },
             "type_parameters": {
                 "type": "nested",
@@ -214,7 +214,7 @@ method_properties = {
                 "type": "keyword"
             },
             "method_name": {
-                "type": "keyword"
+                "type": "text"
             },
             "access_modifier": {
                 "type": "keyword"
@@ -270,7 +270,7 @@ variable_proprties = {
                 "type": "keyword"
             },
             "variable_name": {
-                "type": "keyword"
+                "type": "text"
             },
             "variable_type": {
                 "type": "keyword"
