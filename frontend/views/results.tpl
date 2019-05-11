@@ -1,4 +1,4 @@
-%rebase('search.tpl', title=query, query=query)
+%rebase('search.tpl', title="CS - " + query, query=query)
 <div id="container">
   %for result in results:
     <div class="result">
