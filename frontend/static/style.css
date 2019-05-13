@@ -57,6 +57,10 @@ h1 {
   width: 100%;
 }
 
+#property-search-form {
+  width: 60%;
+}
+
 *:focus {
   outline: none;
 }
@@ -89,7 +93,7 @@ h1 {
   text-decoration: none;
   cursor: pointer;
   margin-left: 10px;
-  opacity: 0.7;
+  opacity: 0.8;
   transition: opacity 300ms ease-in;
 }
 
@@ -97,6 +101,37 @@ h1 {
   opacity: 1;
 }
 
+.button-search {
+    background-color: var(--color-main-violet);
+    color: #fff;
+    border-style: none;
+    border-radius: 5px;
+    padding: 5px 8px;
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
+    margin-left: 10px;
+    opacity: 0.8;
+    transition: opacity 300ms ease-in;
+}
+
+.button-search:hover {
+  opacity: 1;
+}
+
+.button-remove {
+  border: none;
+  background-color: transparent;
+  color: var(--color-main-magnetic-blue);
+}
+
+.original-class-properties .button-remove {
+  visibility: hidden;
+}
+
+.original-class-properties .boolean-property {
+  visibility: hidden;
+}
 
 .result {
   display: block;

@@ -11,14 +11,20 @@ def get_static(filepath):
 
 @get("/")
 def get_index():
-    return template("search.tpl", query="", base="")
+    return template("search.tpl", query="", base="", index='class')
 
 
 @get("/search")
 def get_search():
     query = request.query.query or ""
     results = searching.search(query)
-    return template("results.tpl", query=query, results=results)
+    return template("results.tpl", query=query, results=results, index='code')
+
+@get("/search-class-properties")
+def get_search_class_properties():
+    query = request.query.class_query or ""
+    results = searching.search_class_properties(query)
+    return template("results.tpl", query=query, results=results, index='class')
 
 
 debug(True)

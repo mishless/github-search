@@ -29,6 +29,24 @@ function copyQuery() {
   return true;
 }
 
+function createQuery(that) {
+  booleanElements = that.getElementsByClassName("boolean_property")
+  classProperties = that.getElementsByClassName("class_property")
+  classPropertiesValues = that.getElementsByClassName("class_property_value")
+  query = ''
+  query += classProperties[0].value + ":"
+  query += classPropertiesValues[0].value
+  for (var i=1; i<booleanElements.length; i++) {
+    query += ' '
+    query += booleanElements[i].value
+    query += ' '
+    query += classProperties[i].value + ":"
+    query += classPropertiesValues[i].value
+  }
+  document.getElementById("hidden_class_query").value = query
+  return true;
+}
+
 function getTextSegments(element) {
   const textSegments = [];
   Array.from(element.childNodes).forEach((node) => {
@@ -98,6 +116,19 @@ function restoreSelection(absoluteAnchorIndex, absoluteFocusIndex) {
 
   sel.setBaseAndExtent(anchorNode, anchorIndex, focusNode, focusIndex);
 }
-
-
 updateSearchbox();
+
+function addNewProperty() {
+    var timestamp = new Date().getUTCMilliseconds();
+  	var newDiv = document.createElement('div');
+  	newDiv.innerHTML = document.getElementById('class-properties').innerHTML;
+    newDiv.setAttribute('class', 'form-group row');
+    newDiv.setAttribute('id', 'class-properties-' + timestamp);
+  	// append to our form, so that template data
+  	//become part of form
+  	document.getElementById('class-fields').appendChild(newDiv);
+}
+
+function removeProperty(that) {
+  document.getElementById(that.parentElement.id).remove()
+}
