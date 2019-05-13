@@ -1,9 +1,20 @@
 import javalang
 import config
+import os
 
-def get_enum_doc(url, type, imports, package):
+def get_enum_doc(repo, path, response, type, imports, package):
     enum_doc = {
-        "url": url,
+        "id": repo["id"],
+        "owner": repo["owner"]["login"],
+        "created_at": repo["created_at"],
+        "description": repo["description"],
+        "repository_name": repo["name"],
+        "html_url": repo["html_url"],
+        "open_issues_count": repo["open_issues_count"],
+        "pushed_at": repo["pushed_at"],
+        "stargazers_count": repo["stargazers_count"],
+        "file_name": os.path.basename(path),
+        "words": response,
         "enum_name": type.name,
         "access_modifier": get_access_modifier(type.modifiers),
         "constants": get_constants(type.body.constants),
@@ -19,9 +30,19 @@ def get_enum_doc(url, type, imports, package):
     if package is not None:
         enum_doc['package'] = package.name
     return enum_doc
-def get_interface_doc(url, type, imports, package):
+def get_interface_doc(repo, path, response, type, imports, package):
     interface_doc = {
-        "url": url,
+        "id": repo["id"],
+        "owner": repo["owner"]["login"],
+        "created_at": repo["created_at"],
+        "description": repo["description"],
+        "repository_name": repo["name"],
+        "html_url": repo["html_url"],
+        "open_issues_count": repo["open_issues_count"],
+        "pushed_at": repo["pushed_at"],
+        "stargazers_count": repo["stargazers_count"],
+        "file_name": os.path.basename(path),
+        "words": response,
         "interface_name": type.name,
         "access_modifier": get_access_modifier(type.modifiers),
         "implements_interfaces": get_references(type.extends),
@@ -37,9 +58,19 @@ def get_interface_doc(url, type, imports, package):
     if package is not None:
         interface_doc['package'] = package.name
     return interface_doc
-def get_class_doc(url, type, imports, package):
+def get_class_doc(repo, path, response, type, imports, package):
     class_doc = {
-            "url": url,
+            "id": repo["id"],
+            "owner": repo["owner"]["login"],
+            "created_at": repo["created_at"],
+            "description": repo["description"],
+            "repository_name": repo["name"],
+            "html_url": repo["html_url"],
+            "open_issues_count": repo["open_issues_count"],
+            "pushed_at": repo["pushed_at"],
+            "stargazers_count": repo["stargazers_count"],
+            "file_name": os.path.basename(path),
+            "words": response,
             "class_name": type.name,
             "type_parameters": get_type_parameters(type.type_parameters),
             "access_modifier": get_access_modifier(type.modifiers),
@@ -59,7 +90,7 @@ def get_class_doc(url, type, imports, package):
     if package is not None:
         class_doc['package'] = package.name
     return class_doc
-def get_method_doc(url, type, analysed_code):
+def get_method_doc(repo, path, response, type, analysed_code):
     current_function_index = -1
     for function_index in range(len(analysed_code.__dict__['function_list'])):
         method_name = analysed_code.function_list[function_index].__dict__['name']
@@ -74,7 +105,17 @@ def get_method_doc(url, type, analysed_code):
     #     raise Exception('Error - no such function exists. Lizard found {}, javalang found {}.'.format(analysed_code.__dict__['function_list'], type.name))
 
     method_doc = {
-            "url": url,
+            "id": repo["id"],
+            "owner": repo["owner"]["login"],
+            "created_at": repo["created_at"],
+            "description": repo["description"],
+            "repository_name": repo["name"],
+            "html_url": repo["html_url"],
+            "open_issues_count": repo["open_issues_count"],
+            "pushed_at": repo["pushed_at"],
+            "stargazers_count": repo["stargazers_count"],
+            "file_name": os.path.basename(path),
+            "words": response,
             "method_name": type.name,
             "access_modifier": get_access_modifier(type.modifiers),
             "is_abstract": 'abstract' in type.modifiers,
@@ -82,7 +123,11 @@ def get_method_doc(url, type, analysed_code):
             "is_final": 'final' in type.modifiers,
             "input_type": get_parameter_types(type.parameters),
             "annotation": get_annotations(type.annotations),
-            "type_parameters": get_type_parameters(type.type_parameters)
+            "type_parameters": get_type_parameters(type.type_parameters),
+            "position": {
+                "line": type._position.line,
+                "column": type._position.column
+            }
     }
     # If the method couldn't be analyzed we don't incluce any information on these parameters
     if current_function_index != -1:
@@ -94,49 +139,63 @@ def get_method_doc(url, type, analysed_code):
     if type.return_type is not None:
         method_doc['return_type'] = get_annotations([type.return_type])
     return method_doc
-def get_variable_doc(url, type):
+def get_variable_doc(repo, path, response, type):
     variable_doc = {
-        "url": url,
+        "id": repo["id"],
+        "owner": repo["owner"]["login"],
+        "created_at": repo["created_at"],
+        "description": repo["description"],
+        "repository_name": repo["name"],
+        "html_url": repo["html_url"],
+        "open_issues_count": repo["open_issues_count"],
+        "pushed_at": repo["pushed_at"],
+        "stargazers_count": repo["stargazers_count"],
+        "file_name": os.path.basename(path),
+        "words": response,
         "variable_name": get_variable_names(type.declarators),
         "variable_type": get_references([type.type]),
         "annotation": get_annotations(type.annotations),
         "access_modifier": get_access_modifier(type.modifiers),
         "is_static": 'static' in type.modifiers,
         "is_final": 'final' in type.modifiers,
+        "position": {
+            "line": type._position.line,
+            "column": type._position.column
+        }
     }
     return variable_doc
 
-def parse_data(data, url, analysed_code):
+def parse_data(data, repo, path, analysed_code):
     tree = javalang.parse.parse(data)
     docs = []
     if isinstance(tree, javalang.tree.CompilationUnit):
         for type in tree.types:
             if isinstance(type, javalang.tree.ClassDeclaration):
-                class_doc = (config.class_index, get_class_doc(url, type, tree.imports, tree.package))
+                class_doc = (config.class_index, get_class_doc(repo, path, data, type, tree.imports, tree.package))
                 docs.append(class_doc)
                 for method in type.methods:
-                    method_doc = (config.method_index, get_method_doc(url, method, analysed_code))
+                    method_doc = (config.method_index, get_method_doc(repo, path, data, method, analysed_code))
                     docs.append(method_doc)
                 for field in type.fields:
-                    variable_doc = (config.variable_index, get_variable_doc(url, field))
+                    variable_doc = (config.variable_index, get_variable_doc(repo, path, data, field))
                     docs.append(variable_doc)
             elif isinstance(type, javalang.tree.InterfaceDeclaration):
-                interface_doc = (config.interface_index, get_interface_doc(url, type, tree.imports, tree.package))
+                interface_doc = (config.interface_index, get_interface_doc(repo, path, data, type, tree.imports, tree.package))
                 docs.append(interface_doc)
                 for method in type.methods:
-                    method_doc = (config.method_index, get_method_doc(url, method, analysed_code))
+                    method_doc = (config.method_index, get_method_doc(repo, path, data, method, analysed_code))
                     docs.append(method_doc)
                 for field in type.fields:
-                    variable_doc = (config.variable_index, get_variable_doc(url, field))
+                    variable_doc = (config.variable_index, get_variable_doc(repo, path, data, field))
                     docs.append(variable_doc)
             elif isinstance(type, javalang.tree.EnumDeclaration):
-                enum_doc = (config.enum_index, get_enum_doc(url, type, tree.imports, tree.package))
+                enum_doc = (config.enum_index, get_enum_doc(repo, path, data, type, tree.imports, tree.package))
                 docs.append(enum_doc)
                 for method in type.methods:
-                    method_doc = (config.method_index, get_method_doc(url, method, analysed_code))
+                    method_doc = (config.method_index, get_method_doc(repo, path, data, method, analysed_code))
                     docs.append(method_doc)
                 for field in type.fields:
-                    variable_doc = (config.variable_index, get_variable_doc(url, field))
+                    variable_doc = (config.variable_index, get_variable_doc(repo, path, data, field))
                     docs.append(variable_doc)
     return docs
 

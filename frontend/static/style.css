@@ -1,4 +1,8 @@
 @import url('https://fonts.googleapis.com/css?family=Inconsolata:400,700|Source+Sans+Pro');
+@import "@material/tab-bar/mdc-tab-bar";
+@import "@material/tab-scroller/mdc-tab-scroller";
+@import "@material/tab-indicator/mdc-tab-indicator";
+@import "@material/tab/mdc-tab";
 
 :root {
   --color-bg: #fff;
@@ -9,6 +13,9 @@
 
   --font-main: 'Source Sans Pro', sans-serif;
   --font-code: 'Inconsolata', monospace;
+
+  --color-main-magnetic-blue: #283663;
+  --color-main-violet: #8c7cc4;
 }
 
 * {
@@ -43,20 +50,23 @@ h1 {
   float: left;
 }
 
+#search-form {
+  margin-top: 16px;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+*:focus {
+  outline: none;
+}
+
 #searchbox {
-  background-color: #fff;
-  font-family: var(--font-code);
-  font-size: 1em;
   float: left;
-  margin-left: 22px;
-  transform: translateY(calc(50% - 4px));
-  border: none;
+  border: 1px solid gray;
   border-radius: 5px;
-  height: 26px;
-  width: 400px;
-  padding-left: 10px;
-  padding-top: 4px;
-  white-space: pre;
+  width: 50%;
+  padding: 4px;
 }
 
 #searchbox:empty:not(:focus):before{
@@ -69,35 +79,43 @@ h1 {
   color: #444;
 }
 
-button[type=submit] {
-  background-color: var(--color-main); 
+#button-submit {
+  background-color: var(--color-main-violet);
   color: #fff;
-  border: none;
   border-style: none;
   border-radius: 5px;
   padding: 5px 8px;
   text-align: center;
   text-decoration: none;
-  font-size: 13px;
   cursor: pointer;
-  transform: translateY(calc(50% - 5px));
   margin-left: 10px;
+  opacity: 0.7;
+  transition: opacity 300ms ease-in;
 }
 
-button[type=submit]:hover {
-  background-color: var(--color-main-light); 
+#button-submit:hover {
+  opacity: 1;
 }
 
-#container {
-  max-width: 1000px;
-  padding: 30px;
-  margin-right: auto;
-  margin-left: auto;
-}
 
 .result {
   display: block;
   margin: 20px;
+}
+
+#container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.result {
+  width: 50%;
+}
+
+.result .container-box {
+  margin: 0;
+  padding: 0;
 }
 
 .result a {
@@ -108,4 +126,57 @@ button[type=submit]:hover {
 code {
   font-family: var(--font-code);
   font-size: 0.8em;
+}
+
+#pills-tabContent {
+  width: 100%;
+}
+pre {
+  font-family: monospace;
+  background-color: #fff;
+  padding: 0.5em;
+  border-radius: 0.25em;
+  margin-top: 16px;
+  margin-bottom: 40px;
+  box-shadow: 0.1em 0.1em 0.5em rgba(0, 0, 0, 0.45);
+  line-height: 0;
+  counter-reset: line;
+  overflow: hidden;
+}
+pre span {
+  display: block;
+  line-height: 1.5rem;
+}
+pre span:before {
+  counter-increment: line;
+  content: counter(line);
+  display: inline-block;
+  border-right: 1px solid #ddd;
+  padding: 0 0.5em;
+  margin-right: 0.5em;
+  color: #888;
+}
+
+#nav-custom {
+  padding: 16px 32px;
+  background-color: var(--color-main-magnetic-blue);
+  width: 100%;
+  margin-bottom: 48px;
+}
+
+#nav-custom .nav-link.active {
+  color: var(--color-main-violet);
+  background-color: transparent;
+  border-bottom: 1px solid;
+  border-radius: 0;
+  padding-bottom: 3px;
+}
+
+.nav-pills {
+  margin: 0 !important;
+  width: 70%;
+}
+#nav-custom a {
+  color: white;
+  font-weight: 600;
 }

@@ -4,9 +4,13 @@
     <div class="result">
       <a href="{{result['url']}}">{{result['title']}}</a><br>
       %if 'snippet' in result:
-      <code>
-        {{result['snippet']}}
-      </code>
+      <div class="container-box">
+      <pre>
+        %for snippet in result['snippet']:
+          <span>{{snippet}}</span>
+        %end
+      </pre>
+      </div>
       %end
     </div>
   %end

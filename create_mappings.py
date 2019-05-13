@@ -5,7 +5,7 @@ import logging
 import config
 from elasticsearch import Elasticsearch
 
-repository_properties = {
+file_properties = {
     "doc": {
         "properties": {
             "id": {
@@ -20,7 +20,7 @@ repository_properties = {
             "description": {
                 "type": "text"
             },
-            "name": {
+            "repository_name": {
                 "type": "text"
             },
             "html_url": {
@@ -34,18 +34,6 @@ repository_properties = {
             },
             "stargazers_count": {
                 "type": "integer"
-            }
-        }
-    }
-}
-file_properties = {
-    "doc": {
-        "properties": {
-            "id": {
-                "type": "long"
-            },
-            "url": {
-                "type": "keyword",
             },
             "file_name": {
                 "type": "keyword"
@@ -59,8 +47,38 @@ file_properties = {
 interface_properties = {
     "doc": {
         "properties": {
-            "url": {
+            "id": {
+                "type": "long"
+            },
+            "owner": {
                 "type": "keyword"
+            },
+            "created_at": {
+                "type": "date"
+            },
+            "description": {
+                "type": "text"
+            },
+            "repository_name": {
+                "type": "text"
+            },
+            "html_url": {
+                "type": "keyword"
+            },
+            "open_issues_count": {
+                "type": "integer"
+            },
+            "pushed_at": {
+                "type": "date"
+            },
+            "stargazers_count": {
+                "type": "integer"
+            },
+            "file_name": {
+                "type": "keyword"
+            },
+            "words": {
+                "type": "text"
             },
             "interface_name": {
                 "type": "text"
@@ -108,8 +126,38 @@ interface_properties = {
 enum_properties = {
     "doc": {
         "properties": {
-            "url": {
+            "id": {
+                "type": "long"
+            },
+            "owner": {
                 "type": "keyword"
+            },
+            "created_at": {
+                "type": "date"
+            },
+            "description": {
+                "type": "text"
+            },
+            "repository_name": {
+                "type": "text"
+            },
+            "html_url": {
+                "type": "keyword"
+            },
+            "open_issues_count": {
+                "type": "integer"
+            },
+            "pushed_at": {
+                "type": "date"
+            },
+            "stargazers_count": {
+                "type": "integer"
+            },
+            "file_name": {
+                "type": "keyword"
+            },
+            "words": {
+                "type": "text"
             },
             "enum_name": {
                 "type": "text"
@@ -149,8 +197,38 @@ enum_properties = {
 class_properties = {
     "doc": {
         "properties": {
-            "url": {
+            "id": {
+                "type": "long"
+            },
+            "owner": {
                 "type": "keyword"
+            },
+            "created_at": {
+                "type": "date"
+            },
+            "description": {
+                "type": "text"
+            },
+            "repository_name": {
+                "type": "text"
+            },
+            "html_url": {
+                "type": "keyword"
+            },
+            "open_issues_count": {
+                "type": "integer"
+            },
+            "pushed_at": {
+                "type": "date"
+            },
+            "stargazers_count": {
+                "type": "integer"
+            },
+            "file_name": {
+                "type": "keyword"
+            },
+            "words": {
+                "type": "text"
             },
             "class_name": {
                 "type": "text"
@@ -210,8 +288,38 @@ class_properties = {
 method_properties = {
     "doc": {
         "properties": {
-            "url": {
+            "id": {
+                "type": "long"
+            },
+            "owner": {
                 "type": "keyword"
+            },
+            "created_at": {
+                "type": "date"
+            },
+            "description": {
+                "type": "text"
+            },
+            "repository_name": {
+                "type": "text"
+            },
+            "html_url": {
+                "type": "keyword"
+            },
+            "open_issues_count": {
+                "type": "integer"
+            },
+            "pushed_at": {
+                "type": "date"
+            },
+            "stargazers_count": {
+                "type": "integer"
+            },
+            "file_name": {
+                "type": "keyword"
+            },
+            "words": {
+                "type": "text"
             },
             "method_name": {
                 "type": "text"
@@ -251,6 +359,17 @@ method_properties = {
                     }
                 }
             },
+            "position": {
+                "type": "nested",
+                "properties": {
+                    "line": {
+                        "type": "integer"
+                    },
+                    "row": {
+                        "type": "integer"
+                    }
+                }
+            },
             "cyclomatic_complexity": {
                 "type": "integer"
             },
@@ -266,8 +385,38 @@ method_properties = {
 variable_proprties = {
     "doc": {
         "properties": {
-            "url": {
+            "id": {
+                "type": "long"
+            },
+            "owner": {
                 "type": "keyword"
+            },
+            "created_at": {
+                "type": "date"
+            },
+            "description": {
+                "type": "text"
+            },
+            "repository_name": {
+                "type": "text"
+            },
+            "html_url": {
+                "type": "keyword"
+            },
+            "open_issues_count": {
+                "type": "integer"
+            },
+            "pushed_at": {
+                "type": "date"
+            },
+            "stargazers_count": {
+                "type": "integer"
+            },
+            "file_name": {
+                "type": "keyword"
+            },
+            "words": {
+                "type": "text"
             },
             "variable_name": {
                 "type": "text"
@@ -286,12 +435,23 @@ variable_proprties = {
             },
             "is_final": {
                 "type": "boolean"
+            },
+            "position": {
+                "type": "nested",
+                "properties": {
+                    "line": {
+                        "type": "integer"
+                    },
+                    "row": {
+                        "type": "integer"
+                    }
+                }
             }
         }
     }
 }
 
-indices = [(config.repository_index, repository_properties), (config.enum_index, enum_properties), \
+indices = [(config.enum_index, enum_properties), \
 (config.file_index, file_properties), (config.interface_index, interface_properties), \
 (config.class_index, class_properties), (config.method_index, method_properties),  \
 (config.variable_index, variable_proprties)]

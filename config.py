@@ -1,6 +1,5 @@
-access_token = ''
+access_token = 'f31c70d8b366378343cd9b0bda881b25fd7d6daf'
 bonsai_url = 'https://WC7MyRJ3mg:dzGagxrjJqQ64pRC@dd2476-8696942607.eu-central-1.bonsaisearch.net'
-repository_index = 'repository'
 file_index = 'file'
 interface_index = 'interface'
 class_index = 'class'
