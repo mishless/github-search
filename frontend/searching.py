@@ -218,7 +218,7 @@ def search_variable_properties(query, page, sort):
     search = Search(using=client, index="variable").query(q).sort({sort_arr[0] : {"order" : sort_arr[1]}})
     total = search.count()
     max_pages = total // per_page
-    search = search[page : page + per_page]
+    search = search[(page - 1) * per_page : page * per_page]
     response = search.execute()
     return [result_from_hit(hit, 'variable') for hit in response], queries,  max_pages + 1, total
 
@@ -231,7 +231,7 @@ def search(query, page, sort):
     search = Search(using=client, index="file").query(q).sort({sort_arr[0] : {"order" : sort_arr[1]}})
     total = search.count()
     max_pages = total // per_page
-    search = search[page : page + per_page]
+    search = search[(page - 1) * per_page : page * per_page]
     response = search.execute()
     return [file_result_from_hit(hit) for hit in response], max_pages + 1, total
 
