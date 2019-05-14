@@ -4,10 +4,10 @@
   <nav aria-label="...">
     <ul class="pagination">
       <li class="page-item {{'disabled' if page==1 else ''}}">
-        <label for="external-submit" class="page-link" tabindex="-1" onclick="return requestNewPage({{index}}, {{page-1}})" aria-disabled={{"true" if page==1 else "false"}}>Previous</label>
+        <label for="external-submit" class="page-link" tabindex="-1" onclick="return requestNewPage('{{index}}', {{page-1}})" aria-disabled={{"true" if page==1 else "false"}}>Previous</label>
       </li>
       % if page-5 > 1:
-        <li class="page-item" aria-current="page">
+        <li class="page-item">
           <label for="external-submit" class="page-link">...</label>
         </li>
       % end
@@ -15,11 +15,11 @@
         % if i >= 1 and i <= max_pages:
           % if i == page:
             <li class="page-item active" aria-current="page">
-              <label for="external-submit" class="page-link" onclick="return requestNewPage({{index}}, {{i}})">{{i}}<span class="sr-only">(current)</span></label>
+              <label for="external-submit" class="page-link" onclick="return requestNewPage('{{index}}', {{i}})">{{i}}<span class="sr-only">(current)</span></label>
             </li>
           % else:
             <li class="page-item">
-              <label for="external-submit" class="page-link" onclick="return requestNewPage({{index}}, {{i}})">{{i}}</label>
+              <label for="external-submit" class="page-link" onclick="return requestNewPage('{{index}}', {{i}})">{{i}}</label>
             </li>
           % end
         % end
@@ -30,7 +30,7 @@
         </li>
       % end
         <li class="page-item {{'disabled' if page==max_pages else ''}}">
-        <label for="external-submit" class="page-link" onclick="return requestNewPage({{index}}, {{page+1}})" aria-disabled={{"true" if page==max_pages else "false"}}>Next</label>
+        <label for="external-submit" class="page-link" onclick="return requestNewPage('{{index}}', {{page+1}})" aria-disabled={{"true" if page==max_pages else "false"}}>Next</label>
       </li>
     </ul>
     <button id="external-submit" type="submit" form="{{index}}-property-search-form" hidden>

@@ -134,7 +134,7 @@ function removeProperty(that) {
 }
 
 function requestNewPage(index, pageNumber) {
-  form = document.getElementById(index.id + "-property-search-form")
+  form = document.getElementById(index + "-property-search-form")
   page = form.getElementsByClassName("page")
   page[0].value = pageNumber
   return true;

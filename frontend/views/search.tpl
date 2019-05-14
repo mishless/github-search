@@ -379,7 +379,7 @@
         </form>
       </div>
     </div>
-    <div class="tab-pane fade" id="variable" role="tabpanel" aria-labelledby="pills-contact-tab">
+    <div class="tab-pane fade {{'show active' if index=='variable' else ''}}" id="variable" role="tabpanel" aria-labelledby="pills-contact-tab">
       <div id="search-form">
         <form id="variable-property-search-form" class="property-search-form" action="/search-variable-properties" method="get" onsubmit="return createQuery(this, 'variable')">
           <fieldset>
