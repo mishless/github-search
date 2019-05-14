@@ -166,37 +166,42 @@ def get_variable_doc(repo, path, response, type):
     return variable_doc
 
 def parse_data(data, repo, path, analysed_code):
-    tree = javalang.parse.parse(data)
+    try:
+        tree = javalang.parse.parse(data)
+    except Exception as ex:
+        tree = None
+        print('Exception:', ex)
     docs = []
-    if isinstance(tree, javalang.tree.CompilationUnit):
-        for type in tree.types:
-            if isinstance(type, javalang.tree.ClassDeclaration):
-                class_doc = (config.class_index, get_class_doc(repo, path, data, type, tree.imports, tree.package))
-                docs.append(class_doc)
-                for method in type.methods:
-                    method_doc = (config.method_index, get_method_doc(repo, path, data, method, analysed_code))
-                    docs.append(method_doc)
-                for field in type.fields:
-                    variable_doc = (config.variable_index, get_variable_doc(repo, path, data, field))
-                    docs.append(variable_doc)
-            elif isinstance(type, javalang.tree.InterfaceDeclaration):
-                interface_doc = (config.interface_index, get_interface_doc(repo, path, data, type, tree.imports, tree.package))
-                docs.append(interface_doc)
-                for method in type.methods:
-                    method_doc = (config.method_index, get_method_doc(repo, path, data, method, analysed_code))
-                    docs.append(method_doc)
-                for field in type.fields:
-                    variable_doc = (config.variable_index, get_variable_doc(repo, path, data, field))
-                    docs.append(variable_doc)
-            elif isinstance(type, javalang.tree.EnumDeclaration):
-                enum_doc = (config.enum_index, get_enum_doc(repo, path, data, type, tree.imports, tree.package))
-                docs.append(enum_doc)
-                for method in type.methods:
-                    method_doc = (config.method_index, get_method_doc(repo, path, data, method, analysed_code))
-                    docs.append(method_doc)
-                for field in type.fields:
-                    variable_doc = (config.variable_index, get_variable_doc(repo, path, data, field))
-                    docs.append(variable_doc)
+    if tree is not None:
+        if isinstance(tree, javalang.tree.CompilationUnit):
+            for type in tree.types:
+                if isinstance(type, javalang.tree.ClassDeclaration):
+                    class_doc = (config.class_index, get_class_doc(repo, path, data, type, tree.imports, tree.package))
+                    docs.append(class_doc)
+                    for method in type.methods:
+                        method_doc = (config.method_index, get_method_doc(repo, path, data, method, analysed_code))
+                        docs.append(method_doc)
+                    for field in type.fields:
+                        variable_doc = (config.variable_index, get_variable_doc(repo, path, data, field))
+                        docs.append(variable_doc)
+                elif isinstance(type, javalang.tree.InterfaceDeclaration):
+                    interface_doc = (config.interface_index, get_interface_doc(repo, path, data, type, tree.imports, tree.package))
+                    docs.append(interface_doc)
+                    for method in type.methods:
+                        method_doc = (config.method_index, get_method_doc(repo, path, data, method, analysed_code))
+                        docs.append(method_doc)
+                    for field in type.fields:
+                        variable_doc = (config.variable_index, get_variable_doc(repo, path, data, field))
+                        docs.append(variable_doc)
+                elif isinstance(type, javalang.tree.EnumDeclaration):
+                    enum_doc = (config.enum_index, get_enum_doc(repo, path, data, type, tree.imports, tree.package))
+                    docs.append(enum_doc)
+                    for method in type.methods:
+                        method_doc = (config.method_index, get_method_doc(repo, path, data, method, analysed_code))
+                        docs.append(method_doc)
+                    for field in type.fields:
+                        variable_doc = (config.variable_index, get_variable_doc(repo, path, data, field))
+                        docs.append(variable_doc)
     return docs
 
 def get_references(references):

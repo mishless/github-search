@@ -29,10 +29,10 @@ function copyQuery() {
   return true;
 }
 
-function createQuery(that) {
+function createQuery(that, index) {
   booleanElements = that.getElementsByClassName("boolean_property")
-  classProperties = that.getElementsByClassName("class_property")
-  classPropertiesValues = that.getElementsByClassName("class_property_value")
+  classProperties = that.getElementsByClassName(index + "_property")
+  classPropertiesValues = that.getElementsByClassName(index + "_property_value")
   query = ''
   query += classProperties[0].value + ":"
   query += classPropertiesValues[0].value
@@ -43,7 +43,7 @@ function createQuery(that) {
     query += classProperties[i].value + ":"
     query += classPropertiesValues[i].value
   }
-  document.getElementById("hidden_class_query").value = query
+  document.getElementById("hidden_" + index + "_query").value = query
   return true;
 }
 
@@ -118,17 +118,24 @@ function restoreSelection(absoluteAnchorIndex, absoluteFocusIndex) {
 }
 updateSearchbox();
 
-function addNewProperty() {
+function addNewProperty(index) {
     var timestamp = new Date().getUTCMilliseconds();
   	var newDiv = document.createElement('div');
-  	newDiv.innerHTML = document.getElementById('class-properties').innerHTML;
+  	newDiv.innerHTML = document.getElementById(index + '-properties').innerHTML;
     newDiv.setAttribute('class', 'form-group row');
-    newDiv.setAttribute('id', 'class-properties-' + timestamp);
+    newDiv.setAttribute('id', index + '-properties-' + timestamp);
   	// append to our form, so that template data
   	//become part of form
-  	document.getElementById('class-fields').appendChild(newDiv);
+  	document.getElementById(index + '-fields').appendChild(newDiv);
 }
 
 function removeProperty(that) {
   document.getElementById(that.parentElement.id).remove()
+}
+
+function requestNewPage(index, pageNumber) {
+  form = document.getElementById(index.id + "-property-search-form")
+  page = form.getElementsByClassName("page")
+  page[0].value = pageNumber
+  return true;
 }

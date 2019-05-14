@@ -23,11 +23,17 @@ auth = re.search("https\:\/\/(.*)\@", bonsai).group(1).split(":")
 host = bonsai.replace("https://%s:%s@" % (auth[0], auth[1]), "")
 
 # Connect to cluster over SSL using auth for best security:
+# es_header = [{
+#  "host": host,
+#  "port": 443,
+#  "use_ssl": True,
+#  "http_auth": (auth[0],auth[1])
+# }]
+
 es_header = [{
- "host": host,
- "port": 443,
- "use_ssl": True,
- "http_auth": (auth[0],auth[1])
+ "host": 'localhost',
+ "port": 9200,
+ "use_ssl": False
 }]
 
 # Instantiate the new Elasticsearch connection:
@@ -60,11 +66,11 @@ def create_save_file(repo, content_path, path, requests, id, url):
         "file_name": os.path.basename(path),
         "words": response
     }
-    res = es.index(index=config.file_index, doc_type="doc", body=doc)
+    res = es.index(index=config.file_index, doc_type="_doc", body=doc)
     analysed_code = lizard.analyze_file.analyze_source_code("Placeholder.java", response)
     docs = file_parser.parse_data(response, repo, path, analysed_code)
     for doc in docs:
-        res = es.index(index=doc[0], doc_type="doc", body=doc[1])
+        res = es.index(index=doc[0], doc_type="_doc", body=doc[1])
     # file_path = "./repos/{}/{}".format(repo_name, path)
     # if not os.path.exists(os.path.dirname(file_path)):
     #     os.makedirs(os.path.dirname(file_path))
