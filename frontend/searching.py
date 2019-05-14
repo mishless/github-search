@@ -238,7 +238,7 @@ def search(query, page, sort):
 def file_result_from_hit(hit):
     format_string = "{hit.file_name}()"
     text = hit.words.split('\n')
-    return dict(title=format_string.format(hit=hit), url=hit.html_url, snippet=text)
+    return dict(title=format_string.format(hit=hit), url=hit.html_url, snippet=text, stars_count=hit.stargazers_count, issues_count=hit.open_issues_count)
 
 def result_from_hit(hit, index):
     format_string = "{hit.owner}/{hit.repository_name} - {hit.file_name}"
