@@ -3,7 +3,7 @@ from elasticsearch_dsl import connections
 from elasticsearch_dsl import Q
 from elasticsearch_dsl import Search
 
-host = "localhost"
+host = "albert.lundstig.com"
 client = connections.create_connection(
     host=host, port=9200
 )

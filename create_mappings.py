@@ -475,8 +475,10 @@ def delete_index(es_object, index_name):
 
 logging.basicConfig(level=logging.INFO)
 bonsai = config.bonsai_url
-auth = re.search('https\:\/\/(.*)\@', bonsai).group(1).split(':')
-host = bonsai.replace('https://%s:%s@' % (auth[0], auth[1]), '')
+print(bonsai)
+auth = re.search('http\:\/\/(.*)\@', bonsai).group(1).split(':')
+host = bonsai.replace('http://%s:%s@' % (auth[0], auth[1]), '')
+print(host)
 
 # es_header = [{
 #  'host': host,
@@ -486,7 +488,7 @@ host = bonsai.replace('https://%s:%s@' % (auth[0], auth[1]), '')
 # }]
 
 es_header = [{
- 'host': 'localhost',
+ 'host': host,
  'port': 9200,
  'use_ssl': False
 }]

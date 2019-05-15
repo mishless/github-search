@@ -19,8 +19,8 @@ logging.basicConfig(level=logging.INFO)
 
 # Parse the auth and host from env:
 bonsai = config.bonsai_url
-auth = re.search("https\:\/\/(.*)\@", bonsai).group(1).split(":")
-host = bonsai.replace("https://%s:%s@" % (auth[0], auth[1]), "")
+auth = re.search("http\:\/\/(.*)\@", bonsai).group(1).split(":")
+host = bonsai.replace("http://%s:%s@" % (auth[0], auth[1]), "")
 
 # Connect to cluster over SSL using auth for best security:
 # es_header = [{
@@ -31,7 +31,7 @@ host = bonsai.replace("https://%s:%s@" % (auth[0], auth[1]), "")
 # }]
 
 es_header = [{
- "host": 'localhost',
+ "host": host,
  "port": 9200,
  "use_ssl": False
 }]
