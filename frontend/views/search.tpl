@@ -33,7 +33,7 @@
             <button id="button-submit" class="col-sm-1" type="submit" value=""><i class="fas fa-search"></i></button>
           </div>
           <label class="col-sm-1 col-form-label float-left">Sort</label>
-          <select class="form-control col-sm-3 float-left" name="sort">
+          <select class="form-control col-sm-4 float-left" name="sort">
               <option value='stargazers_count:asc' {{'selected' if sort=='stargazers_count:asc' else ''}}>Stars (ascending)</option>
               <option value='stargazers_count:desc' {{'selected' if sort=='stargazers_count:desc' else ''}}>Stars (descending)</option>
               <option value='created_at:asc' {{'selected' if sort=='created_at:asc' else ''}}>Created at (ascending)</option>
@@ -118,7 +118,7 @@
           <input type="textarea" class="page" name="page" hidden value=1>
           <!-- <button type="submit" class="button-search btn btn-primary float-right">Submit</button> -->
           <label class="col-sm-1 col-form-label float-left">Sort</label>
-          <select class="form-control col-sm-3 float-left" name="sort">
+          <select class="form-control col-sm-4 float-left" name="sort">
               <option value='stargazers_count:asc' {{'selected' if sort=='stargazers_count:asc' else ''}}>Stars (ascending)</option>
               <option value='stargazers_count:desc' {{'selected' if sort=='stargazers_count:desc' else ''}}>Stars (descending)</option>
               <option value='created_at:asc' {{'selected' if sort=='created_at:asc' else ''}}>Created at (ascending)</option>
@@ -197,7 +197,7 @@
           <input type="textarea" class="page" name="page" hidden value=1>
           <!-- <button type="submit" class="button-search btn btn-primary float-right">Submit</button> -->
           <label class="col-sm-1 col-form-label float-left">Sort</label>
-          <select class="form-control col-sm-3 float-left" name="sort">
+          <select class="form-control col-sm-4 float-left" name="sort">
               <option value='stargazers_count:asc' {{'selected' if sort=='stargazers_count:asc' else ''}}>Stars (ascending)</option>
               <option value='stargazers_count:desc' {{'selected' if sort=='stargazers_count:desc' else ''}}>Stars (descending)</option>
               <option value='created_at:asc' {{'selected' if sort=='created_at:asc' else ''}}>Created at (ascending)</option>
@@ -278,7 +278,7 @@
           <input type="textarea" class="page" name="page" hidden value=1>
           <!-- <button type="submit" class="button-search btn btn-primary float-right">Submit</button> -->
           <label class="col-sm-1 col-form-label float-left">Sort</label>
-          <select class="form-control col-sm-3 float-left" name="sort">
+          <select class="form-control col-sm-4 float-left" name="sort">
               <option value='stargazers_count:asc' {{'selected' if sort=='stargazers_count:asc' else ''}}>Stars (ascending)</option>
               <option value='stargazers_count:desc' {{'selected' if sort=='stargazers_count:desc' else ''}}>Stars (descending)</option>
               <option value='created_at:asc' {{'selected' if sort=='created_at:asc' else ''}}>Created at (ascending)</option>
@@ -364,7 +364,13 @@
           <input type="textarea" class="page" name="page" hidden value=1>
           <!-- <button type="submit" class="button-search btn btn-primary float-right">Submit</button> -->
           <label class="col-sm-1 col-form-label float-left">Sort</label>
-          <select class="form-control col-sm-3 float-left" name="sort">
+          <select class="form-control col-sm-5 float-left" name="sort">
+              <option value='cyclomatic_complexity:asc' {{'selected' if sort=='cyclomatic_complexity:asc' else ''}}>Cyclomatic complexity (ascending)</option>
+              <option value='cyclomatic_complexity:desc' {{'selected' if sort=='cyclomatic_complexity:desc' else ''}}>Cyclomatic complexity (descending)</option>
+              <option value='token_count:asc' {{'selected' if sort=='token_count:asc' else ''}}>Length of method (ascending)</option>
+              <option value='token_count:desc' {{'selected' if sort=='token_count:desc' else ''}}>Length of method (descending)</option>
+              <option value='parameter_count:asc' {{'selected' if sort=='parameter_count:asc' else ''}}>Number of parameters (ascending)</option>
+              <option value='parameter_count:desc' {{'selected' if sort=='parameter_count:desc' else ''}}>Number of parameters (descending)</option>
               <option value='stargazers_count:asc' {{'selected' if sort=='stargazers_count:asc' else ''}}>Stars (ascending)</option>
               <option value='stargazers_count:desc' {{'selected' if sort=='stargazers_count:desc' else ''}}>Stars (descending)</option>
               <option value='created_at:asc' {{'selected' if sort=='created_at:asc' else ''}}>Created at (ascending)</option>
@@ -443,7 +449,7 @@
           <input type="textarea" class="page" name="page" hidden value=1>
           <!-- <button type="submit" class="button-search btn btn-primary float-right">Submit</button> -->
           <label class="col-sm-1 col-form-label float-left">Sort</label>
-          <select class="form-control col-sm-3 float-left" name="sort">
+          <select class="form-control col-sm-4 float-left" name="sort">
               <option value='stargazers_count:asc' {{'selected' if sort=='stargazers_count:asc' else ''}}>Stars (ascending)</option>
               <option value='stargazers_count:desc' {{'selected' if sort=='stargazers_count:desc' else ''}}>Stars (descending)</option>
               <option value='created_at:asc' {{'selected' if sort=='created_at:asc' else ''}}>Created at (ascending)</option>

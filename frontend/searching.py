@@ -251,7 +251,8 @@ def result_from_hit(hit, index):
         snippet.append(text[i])
         number_of_opening += text[i].count('{')
         number_of_closing += text[i].count('}')
-        if number_of_opening == number_of_closing:
+        print(number_of_opening, number_of_closing)
+        if (number_of_opening == number_of_closing and number_of_opening > 0) or (number_of_opening == number_of_closing and index == 'variable'):
             break
         i += 1
     return dict(title=format_string.format(hit=hit), url=hit.html_url, snippet=snippet, stars_count=hit.stargazers_count, issues_count=hit.open_issues_count)
