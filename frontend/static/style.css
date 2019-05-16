@@ -178,7 +178,8 @@ legend {
 }
 
 .result {
-  width: 50%;
+  width: 85%;
+  max-width: 1000px;
 }
 
 .result .container-box {
