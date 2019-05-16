@@ -34,6 +34,7 @@
           </div>
           <label class="col-sm-1 col-form-label float-left">Sort</label>
           <select class="form-control col-sm-4 float-left" name="sort">
+              <option value='none' {{'selected' if sort=='none' else ''}}>None</option>
               <option value='stargazers_count:asc' {{'selected' if sort=='stargazers_count:asc' else ''}}>Stars (ascending)</option>
               <option value='stargazers_count:desc' {{'selected' if sort=='stargazers_count:desc' else ''}}>Stars (descending)</option>
               <option value='created_at:asc' {{'selected' if sort=='created_at:asc' else ''}}>Created at (ascending)</option>
@@ -119,6 +120,7 @@
           <!-- <button type="submit" class="button-search btn btn-primary float-right">Submit</button> -->
           <label class="col-sm-1 col-form-label float-left">Sort</label>
           <select class="form-control col-sm-4 float-left" name="sort">
+              <option value='none' {{'selected' if sort=='none' else ''}}>None</option>
               <option value='stargazers_count:asc' {{'selected' if sort=='stargazers_count:asc' else ''}}>Stars (ascending)</option>
               <option value='stargazers_count:desc' {{'selected' if sort=='stargazers_count:desc' else ''}}>Stars (descending)</option>
               <option value='created_at:asc' {{'selected' if sort=='created_at:asc' else ''}}>Created at (ascending)</option>
@@ -198,6 +200,7 @@
           <!-- <button type="submit" class="button-search btn btn-primary float-right">Submit</button> -->
           <label class="col-sm-1 col-form-label float-left">Sort</label>
           <select class="form-control col-sm-4 float-left" name="sort">
+              <option value='none' {{'selected' if sort=='none' else ''}}>None</option>
               <option value='stargazers_count:asc' {{'selected' if sort=='stargazers_count:asc' else ''}}>Stars (ascending)</option>
               <option value='stargazers_count:desc' {{'selected' if sort=='stargazers_count:desc' else ''}}>Stars (descending)</option>
               <option value='created_at:asc' {{'selected' if sort=='created_at:asc' else ''}}>Created at (ascending)</option>
@@ -279,6 +282,7 @@
           <!-- <button type="submit" class="button-search btn btn-primary float-right">Submit</button> -->
           <label class="col-sm-1 col-form-label float-left">Sort</label>
           <select class="form-control col-sm-4 float-left" name="sort">
+              <option value='none' {{'selected' if sort=='none' else ''}}>None</option>
               <option value='stargazers_count:asc' {{'selected' if sort=='stargazers_count:asc' else ''}}>Stars (ascending)</option>
               <option value='stargazers_count:desc' {{'selected' if sort=='stargazers_count:desc' else ''}}>Stars (descending)</option>
               <option value='created_at:asc' {{'selected' if sort=='created_at:asc' else ''}}>Created at (ascending)</option>
@@ -365,6 +369,7 @@
           <!-- <button type="submit" class="button-search btn btn-primary float-right">Submit</button> -->
           <label class="col-sm-1 col-form-label float-left">Sort</label>
           <select class="form-control col-sm-5 float-left" name="sort">
+              <option value='none' {{'selected' if sort=='none' else ''}}>None</option>
               <option value='cyclomatic_complexity:asc' {{'selected' if sort=='cyclomatic_complexity:asc' else ''}}>Cyclomatic complexity (ascending)</option>
               <option value='cyclomatic_complexity:desc' {{'selected' if sort=='cyclomatic_complexity:desc' else ''}}>Cyclomatic complexity (descending)</option>
               <option value='token_count:asc' {{'selected' if sort=='token_count:asc' else ''}}>Length of method (ascending)</option>
@@ -450,6 +455,7 @@
           <!-- <button type="submit" class="button-search btn btn-primary float-right">Submit</button> -->
           <label class="col-sm-1 col-form-label float-left">Sort</label>
           <select class="form-control col-sm-4 float-left" name="sort">
+              <option value='none' {{'selected' if sort=='none' else ''}}>None</option>
               <option value='stargazers_count:asc' {{'selected' if sort=='stargazers_count:asc' else ''}}>Stars (ascending)</option>
               <option value='stargazers_count:desc' {{'selected' if sort=='stargazers_count:desc' else ''}}>Stars (descending)</option>
               <option value='created_at:asc' {{'selected' if sort=='created_at:asc' else ''}}>Created at (ascending)</option>

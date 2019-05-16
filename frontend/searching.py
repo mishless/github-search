@@ -50,8 +50,11 @@ def search_class_properties(query, page, sort):
                 q = q & Q("wildcard", imports=word) if is_and else q | Q("wildcard", imports=word)
             elif tag == "package":
                 q = q & Q("wildcard", package=word) if is_and else q | Q("wildcard", package=word)
-    sort_arr = sort.split(":")
-    search = Search(using=client, index="class").query(q).sort({sort_arr[0] : {"order" : sort_arr[1]}})
+    if ":" in sort:
+        sort_arr = sort.split(":")
+        search = Search(using=client, index="class").query(q).sort({sort_arr[0] : {"order" : sort_arr[1]}})
+    else:
+        search = Search(using=client, index="class").query(q)
     total = search.count()
     max_pages = total // per_page
     search = search[(page - 1) * per_page : page * per_page]
@@ -89,8 +92,11 @@ def search_interface_properties(query, page, sort):
                 q = q & Q("wildcard", imports=word) if is_and else q | Q("wildcard", imports=word)
             elif tag == "package":
                 q = q & Q("wildcard", package=word) if is_and else q | Q("wildcard", package=word)
-    sort_arr = sort.split(":")
-    search = Search(using=client, index="interface").query(q).sort({sort_arr[0] : {"order" : sort_arr[1]}})
+    if ":" in sort:
+        sort_arr = sort.split(":")
+        search = Search(using=client, index="interface").query(q).sort({sort_arr[0] : {"order" : sort_arr[1]}})
+    else:
+        search = Search(using=client, index="interface").query(q)
     total = search.count()
     max_pages = total // per_page
     search = search[(page - 1) * per_page : page * per_page]
@@ -130,8 +136,11 @@ def search_enum_properties(query, page, sort):
                 q = q & Q("wildcard", imports=word) if is_and else q | Q("wildcard", imports=word)
             elif tag == "package":
                 q = q & Q("wildcard", package=word) if is_and else q | Q("wildcard", package=word)
-    sort_arr = sort.split(":")
-    search = Search(using=client, index="enum").query(q).sort({sort_arr[0] : {"order" : sort_arr[1]}})
+    if ":" in sort:
+        sort_arr = sort.split(":")
+        search = Search(using=client, index="enum").query(q).sort({sort_arr[0] : {"order" : sort_arr[1]}})
+    else:
+        search = Search(using=client, index="enum").query(q)
     total = search.count()
     max_pages = total // per_page
     search = search[(page - 1) * per_page : page * per_page]
@@ -175,8 +184,11 @@ def search_method_properties(query, page, sort):
                 q = q & Q("wildcard", input_type=word) if is_and else q | Q("wildcard", input_type=word)
             elif tag == "throws":
                 q = q & Q("wildcard", throws=word) if is_and else q | Q("wildcard", throws=word)
-    sort_arr = sort.split(":")
-    search = Search(using=client, index="method").query(q).sort({sort_arr[0] : {"order" : sort_arr[1]}})
+    if ":" in sort:
+        sort_arr = sort.split(":")
+        search = Search(using=client, index="method").query(q).sort({sort_arr[0] : {"order" : sort_arr[1]}})
+    else:
+        search = Search(using=client, index="method").query(q)
     total = search.count()
     max_pages = total // per_page
     search = search[(page - 1) * per_page : page * per_page]
@@ -214,8 +226,11 @@ def search_variable_properties(query, page, sort):
                 q = q & Q("match", is_final=word) if is_and else q | Q("match", is_final=word)
             elif tag == "annotation":
                 q = q & Q("wildcard", annotation=word) if is_and else q | Q("wildcard", annotation=word)
-    sort_arr = sort.split(":")
-    search = Search(using=client, index="variable").query(q).sort({sort_arr[0] : {"order" : sort_arr[1]}})
+    if ":" in sort:
+        sort_arr = sort.split(":")
+        search = Search(using=client, index="variable").query(q).sort({sort_arr[0] : {"order" : sort_arr[1]}})
+    else:
+        search = Search(using=client, index="variable").query(q)
     total = search.count()
     max_pages = total // per_page
     search = search[(page - 1) * per_page : page * per_page]
@@ -227,8 +242,11 @@ def search(query, page, sort):
     for token in query.split():
         tag, word = parse_token(token)
         q = q & Q("wildcard", words="*{}*".format(word))
-    sort_arr = sort.split(":")
-    search = Search(using=client, index="file").query(q).sort({sort_arr[0] : {"order" : sort_arr[1]}})
+    if ":" in sort:
+        sort_arr = sort.split(":")
+        search = Search(using=client, index="file").query(q).sort({sort_arr[0] : {"order" : sort_arr[1]}})
+    else:
+        search = Search(using=client, index="file").query(q)
     total = search.count()
     max_pages = total // per_page
     search = search[(page - 1) * per_page : page * per_page]
@@ -236,7 +254,7 @@ def search(query, page, sort):
     return [file_result_from_hit(hit) for hit in response], max_pages + 1, total
 
 def file_result_from_hit(hit):
-    format_string = "{hit.file_name}()"
+    format_string = "{hit.owner}/{hit.repository_name} - {hit.file_name}"
     text = hit.words.split('\n')
     return dict(title=format_string.format(hit=hit), url=hit.html_url, snippet=text, stars_count=hit.stargazers_count, issues_count=hit.open_issues_count)
 
@@ -254,7 +272,6 @@ def result_from_hit(hit, index):
             break
         number_of_opening += text[i].count('{')
         number_of_closing += text[i].count('}')
-        print(number_of_opening, number_of_closing)
         if (number_of_opening == number_of_closing and number_of_opening > 0) or (number_of_opening == number_of_closing and index == 'variable'):
             break
         i += 1

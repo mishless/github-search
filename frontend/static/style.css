@@ -82,6 +82,26 @@ legend {
   margin-right: 0;
 }
 
+.show-more {
+  font-size: small;
+  padding: 3px;
+  margin-right: 10px;
+  opacity: 0.8;
+  transition: opacity 300ms ease-in;
+  background-color: lightgray;
+  border: none;
+}
+
+.show-more:hover {
+  opacity: 1;
+  background-color: lightgray;
+}
+
+.show-more:active {
+  opacity: 1;
+  background-color: lightgray !important;
+}
+
 .result-title {
   display: flex;
   flex-direction: row;
@@ -168,7 +188,7 @@ legend {
 
 .result {
   display: block;
-  margin: 20px;
+  margin: 10px;
 }
 
 #container {

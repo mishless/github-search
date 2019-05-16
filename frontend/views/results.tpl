@@ -1,5 +1,5 @@
 %rebase('search.tpl', query=query, queries=queries, index=index, sort=sort, page=page, max_pages=max_pages, total_results=total_results)
-<div id="container">
+<div id="container" style="margin-bottom: 80px;">
   % if total_results > 10:
   <nav aria-label="...">
     <ul class="pagination">
@@ -37,20 +37,25 @@
   </nav>
   % end
   <span>Results: {{total_results}}</span>
-  % for result in results:
+  % for j, result in enumerate(results):
     <div class="result">
       <div class="result-title">
+        <button class="btn btn-primary show-more" type="button" data-toggle="collapse" data-target="#collapseExample-{{j}}" aria-expanded="false" aria-controls="collapseExample">
+          <i class="fas fa-chevron-down"></i>
+        </button>
         <a href="{{result['url']}}">{{result['title']}}</a><br>
         <div class="result-title-info"><i style="color: khaki" class="fas fa-star"></i>{{result['stars_count']}}
           <i style="color: tomato" class="fas fa-exclamation-circle"></i>{{result['issues_count']}}</div>
       </div>
       % if 'snippet' in result:
-        <div class="container-box">
-          <pre>
-            % for snippet in result['snippet']:
-              <span>{{snippet}}</span>
-            % end
-          </pre>
+        <div class="collapse" id="collapseExample-{{j}}">
+          <div class="container-box">
+            <pre>
+              % for snippet in result['snippet']:
+                <span>{{snippet}}</span>
+              % end
+            </pre>
+          </div>
         </div>
       % end
     </div>
