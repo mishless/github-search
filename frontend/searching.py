@@ -247,8 +247,11 @@ def result_from_hit(hit, index):
     i = hit.position.line - 1
     number_of_opening = 0
     number_of_closing = 0
-    while True:
+    while i < len(text):
         snippet.append(text[i])
+        #Stop if this is just a function declaration
+        if i == hit.position.line - 1 and text[i][-1] == ";":
+            break
         number_of_opening += text[i].count('{')
         number_of_closing += text[i].count('}')
         print(number_of_opening, number_of_closing)
