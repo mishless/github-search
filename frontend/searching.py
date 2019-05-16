@@ -239,9 +239,13 @@ def search_variable_properties(query, page, sort):
 
 def search(query, page, sort):
     q = Q("match_all")
-    for token in query.split():
-        tag, word = parse_token(token)
-        q = q & Q("wildcard", words="*{}*".format(word))
+    word = query
+    if word[0] == '"' and word[-1] == '"':
+        q = q & Q("match_phrase", words="{}".format(word))
+    else:
+        words = word.split(' ')
+        for w in words:
+            q = q & Q("wildcard", words="{}".format(w))
     if ":" in sort:
         sort_arr = sort.split(":")
         search = Search(using=client, index="file").query(q).sort({sort_arr[0] : {"order" : sort_arr[1]}})
@@ -265,15 +269,27 @@ def result_from_hit(hit, index):
     i = hit.position.line - 1
     number_of_opening = 0
     number_of_closing = 0
+    if index == 'class' or index == 'enum' or index == 'interface':
+        for j in range(0, i):
+            snippet.append(text[j])
+    else:
+        for j in range(len(hit.annotation), 0, -1):
+            snippet.append(text[i-j])
     while i < len(text):
         snippet.append(text[i])
         #Stop if this is just a function declaration
         if i == hit.position.line - 1 and text[i][-1] == ";":
             break
-        number_of_opening += text[i].count('{')
-        number_of_closing += text[i].count('}')
-        if (number_of_opening == number_of_closing and number_of_opening > 0) or (number_of_opening == number_of_closing and index == 'variable'):
-            break
+        if index == 'variable':
+            number_of_opening += text[i].count('(')
+            number_of_closing += text[i].count(')')
+            if (number_of_opening == number_of_closing and number_of_opening > 0):
+                break
+        else:
+            number_of_opening += text[i].count('{')
+            number_of_closing += text[i].count('}')
+            if (number_of_opening == number_of_closing and number_of_opening > 0):
+                break
         i += 1
     return dict(title=format_string.format(hit=hit), url=hit.html_url, snippet=snippet, stars_count=hit.stargazers_count, issues_count=hit.open_issues_count)
 

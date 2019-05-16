@@ -83,7 +83,7 @@
             </div>
             % if queries is not None:
             % for i in range(1, len(queries)):
-            <div id="class-properties" class="form-group row">
+            <div id="class-properties-{{i}}" class="form-group row">
               <div class="boolean-property col-sm-2">
                 <select class="form-control boolean_property" value={{queries[i][0]}}>
                     <option value="and" {{'selected' if queries[i][0]=='and' else ''}}>and</option>
@@ -107,7 +107,7 @@
               </div>
               <label class="col-sm-1 col-form-label">Value</label>
               <div class="col-sm-3">
-                <input type="text" class="form-control class_property_value" value={{queries[i][2]}} />
+                <input type="text" class="form-control class_property_value" value={{queries[i][2]}}></input>
               </div>
               <button id="button-remove" class="col-sm-1 button-remove" type="button" value="" onclick="removeProperty(this)"><i class="fas fa-ban"></i></i></button>
             </div>
@@ -167,7 +167,7 @@
               </div>
               % if queries is not None:
               % for i in range(1, len(queries)):
-              <div id="interface-properties" class="form-group row">
+              <div id="interface-properties-{{i}}" class="form-group row">
                 <div class="boolean-property col-sm-2">
                   <select class="form-control boolean_property" value={{queries[i][0]}}>
                       <option value="and" {{'selected' if queries[i][0]=='and' else ''}}>and</option>
@@ -187,7 +187,7 @@
                 </div>
                 <label class="col-sm-1 col-form-label">Value</label>
                 <div class="col-sm-3">
-                  <input type="text" class="form-control interface_property_value" value={{queries[i][2]}} />
+                  <input type="text" class="form-control interface_property_value" value={{queries[i][2]}}></input>
                 </div>
                 <button id="button-remove" class="col-sm-1 button-remove" type="button" value="" onclick="removeProperty(this)"><i class="fas fa-ban"></i></i></button>
               </div>
@@ -248,7 +248,7 @@
               </div>
               % if queries is not None:
               % for i in range(1, len(queries)):
-              <div id="enum-properties" class="form-group row">
+              <div id="enum-properties-{{i}}" class="form-group row">
                 <div class="boolean-property col-sm-2">
                   <select class="form-control boolean_property" value={{queries[i][0]}}>
                       <option value="and" {{'selected' if queries[i][0]=='and' else ''}}>and</option>
@@ -269,7 +269,7 @@
                 </div>
                 <label class="col-sm-1 col-form-label">Value</label>
                 <div class="col-sm-3">
-                  <input type="text" class="form-control enum_property_value" value={{queries[i][2]}} />
+                  <input type="text" class="form-control enum_property_value" value={{queries[i][2]}}></input>
                 </div>
                 <button id="button-remove" class="col-sm-1 button-remove" type="button" value="" onclick="removeProperty(this)"><i class="fas fa-ban"></i></i></button>
               </div>
@@ -332,7 +332,7 @@
               </div>
               % if queries is not None:
               % for i in range(1, len(queries)):
-              <div id="method-properties" class="form-group row">
+              <div id="method-properties-{{i}}" class="form-group row">
                 <div class="boolean-property col-sm-2">
                   <select class="form-control boolean_property" value={{queries[i][0]}}>
                       <option value="and" {{'selected' if queries[i][0]=='and' else ''}}>and</option>
@@ -356,7 +356,7 @@
                 </div>
                 <label class="col-sm-1 col-form-label">Value</label>
                 <div class="col-sm-3">
-                  <input type="text" class="form-control method_property_value" value={{queries[i][2]}} />
+                  <input type="text" class="form-control method_property_value" value={{queries[i][2]}}></input>
                 </div>
                 <button id="button-remove" class="col-sm-1 button-remove" type="button" value="" onclick="removeProperty(this)"><i class="fas fa-ban"></i></i></button>
               </div>
@@ -422,7 +422,7 @@
               </div>
               % if queries is not None:
               % for i in range(1, len(queries)):
-              <div id="variable-properties" class="form-group row">
+              <div id="variable-properties-{{i}}" class="form-group row">
                 <div class="boolean-property col-sm-2">
                   <select class="form-control boolean_property" value={{queries[i][0]}}>
                       <option value="and" {{'selected' if queries[i][0]=='and' else ''}}>and</option>
@@ -442,7 +442,7 @@
                 </div>
                 <label class="col-sm-1 col-form-label">Value</label>
                 <div class="col-sm-3">
-                  <input type="text" class="form-control variable_property_value" value={{queries[i][2]}} />
+                  <input type="text" class="form-control variable_property_value" value={{queries[i][2]}}></input>
                 </div>
                 <button id="button-remove" class="col-sm-1 button-remove" type="button" value="" onclick="removeProperty(this)"><i class="fas fa-ban"></i></i></button>
               </div>
