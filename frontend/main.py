@@ -13,7 +13,7 @@ def get_index():
 
 @get("/search")
 def get_search():
-    query = request.query.query or ""
+    query = request.query.query.lower() or ""
     page = int(request.query.page)
     sort = request.query.sort
     results, max_pages, total_results = searching.search(query, page, sort)
@@ -21,7 +21,7 @@ def get_search():
 
 @get("/search-class-properties")
 def get_search_class_properties():
-    query = request.query.class_query or ""
+    query = request.query.class_query.lower() or ""
     page = int(request.query.page)
     sort = request.query.sort
     results, queries, max_pages, total_results = searching.search_class_properties(query, page, sort)
@@ -29,7 +29,7 @@ def get_search_class_properties():
 
 @get("/search-interface-properties")
 def get_search_class_properties():
-    query = request.query.interface_query or ""
+    query = request.query.interface_query.lower() or ""
     page = int(request.query.page)
     sort = request.query.sort
     results, queries, max_pages, total_results = searching.search_interface_properties(query, page, sort)
@@ -37,7 +37,7 @@ def get_search_class_properties():
 
 @get("/search-enum-properties")
 def get_search_class_properties():
-    query = request.query.enum_query or ""
+    query = request.query.enum_query.lower() or ""
     page = int(request.query.page)
     sort = request.query.sort
     results, queries, max_pages, total_results = searching.search_enum_properties(query, page, sort)
@@ -45,7 +45,7 @@ def get_search_class_properties():
 
 @get("/search-method-properties")
 def get_search_class_properties():
-    query = request.query.method_query or ""
+    query = request.query.method_query.lower() or ""
     page = int(request.query.page)
     sort = request.query.sort
     results, queries, max_pages, total_results = searching.search_method_properties(query, page, sort)
@@ -53,7 +53,7 @@ def get_search_class_properties():
 
 @get("/search-variable-properties")
 def get_search_class_properties():
-    query = request.query.variable_query or ""
+    query = request.query.variable_query.lower() or ""
     page = int(request.query.page)
     sort = request.query.sort
     results, queries, max_pages, total_results = searching.search_variable_properties(query, page, sort)
