@@ -154,7 +154,7 @@
                         <option value='interface_name' {{'selected' if queries is not None and queries[0][1]=='interface_name' else ''}}>Interface name</option>
                         <option value='access_modifier' {{'selected' if queries is not None and queries[0][1]=='access_modifier' else ''}}>Access modifier</option>
                         <option value='annotation' {{'selected' if queries is not None and queries[0][1]=='annotation' else ''}}>Annotation</option>
-                        <option value='implements_interfaces' {{'selected' if queries is not None and queries[0][1]=='implements_interfaces' else ''}}>Implements interface</option>
+                        <option value='implements_interfaces' {{'selected' if queries is not None and queries[0][1]=='implements_interfaces' else ''}}>Extends interface</option>
                         <option value='imports' {{'selected' if queries is not None and queries[0][1]=='imports' else ''}}>Imports</option>
                         <option value='package' {{'selected' if queries is not None and queries[0][1]=='package' else ''}}>Package</option>
                   </select>
@@ -180,7 +180,7 @@
                       <option value='interface_name' {{'selected' if queries[i][1]=='interface_name' else ''}}>Interface name</option>
                       <option value='access_modifier' {{'selected' if queries[i][1]=='access_modifier' else ''}}>Access modifier</option>
                       <option value='annotation' {{'selected' if queries[i][1]=='annotation' else ''}}>Annotation</option>
-                      <option value='implements_interfaces' {{'selected' if queries[i][1]=='implements_interfaces' else ''}}>Implements interface</option>
+                      <option value='implements_interfaces' {{'selected' if queries[i][1]=='implements_interfaces' else ''}}>Extends interface</option>
                       <option value='imports' {{'selected' if queries[i][1]=='imports' else ''}}>Imports</option>
                       <option value='package' {{'selected' if queries[i][1]=='package' else ''}}>Package</option>
                   </select>
